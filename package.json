@@ -2,18 +2,8 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/disya08/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/disya08/frontend-project-46/actions)",
-  "homepage": "https://github.com/disya08/frontend-project-46#readme",
-  "bugs": {
-    "url": "https://github.com/disya08/frontend-project-46/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/disya08/frontend-project-46.git"
-  },
-  "license": "ISC",
-  "author": "",
+  "main": "src/index.js",
   "type": "module",
-  "main": "index.js",
   "bin": {
     "gendiff": "./gendiff.js"
   },
