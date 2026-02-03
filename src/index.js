@@ -1,15 +1,15 @@
-import parseFile from './parsers.js';
-import _ from 'lodash';
+const _ = require('lodash');
+const parseFile = require('./parsers.js');
 
 const buildDiff = (data1, data2) => {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
   const allKeys = _.sortBy(_.union(keys1, keys2));
-  
+
   const diff = allKeys.map((key) => {
     const value1 = data1[key];
     const value2 = data2[key];
-    
+
     if (!_.has(data1, key)) {
       return { key, type: 'added', value: value2 };
     }
@@ -19,9 +19,11 @@ const buildDiff = (data1, data2) => {
     if (value1 === value2) {
       return { key, type: 'unchanged', value: value1 };
     }
-    return { key, type: 'changed', value: value1, value2 };
+    return {
+      key, type: 'changed', value: value1, value2,
+    };
   });
-  
+
   return diff;
 };
 
@@ -40,7 +42,7 @@ const formatDiff = (diff) => {
         return '';
     }
   });
-  
+
   return `{\n${lines.join('\n')}\n}`;
 };
 
@@ -51,4 +53,4 @@ const genDiff = (filepath1, filepath2) => {
   return formatDiff(diff);
 };
 
-export default genDiff;
+module.exports = genDiff;
