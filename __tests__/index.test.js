@@ -1,49 +1,39 @@
 const { describe, expect, test } = require('@jest/globals');
+const { readFileSync } = require('fs');
+const { join } = require('path');
 const genDiff = require('../src/index.js');
+
+const getFixturePath = (filename) => join(__dirname, '__fixtures__', filename);
+const readFixture = (filename) => readFileSync(getFixturePath(filename), 'utf8');
 
 describe('genDiff', () => {
   test('compares flat json files', () => {
-    const file1 = 'file1.json';
-    const file2 = 'file2.json';
+    const file1 = getFixturePath('file1.json');
+    const file2 = getFixturePath('file2.json');
+    const expected = readFixture('expected-flat.txt');
     const result = genDiff(file1, file2);
-    const expected = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-    expect(result).toBe(expected);
+    const normalizedExpected = expected.replace(/\r\n/g, '\n').trim();
+    const normalizedResult = result.trim();
+    expect(normalizedResult).toBe(normalizedExpected);
   });
 
-  test('compares flat yaml files', () => {
-    const file1 = '__tests__/__fixtures__/file1.yaml';
-    const file2 = '__tests__/__fixtures__/file2.yaml';
+  test('compares nested json files', () => {
+    const file1 = getFixturePath('nested1.json');
+    const file2 = getFixturePath('nested2.json');
+    const expected = readFixture('expected-nested.txt');
     const result = genDiff(file1, file2);
-    const expected = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-    expect(result).toBe(expected);
+    const normalizedExpected = expected.replace(/\r\n/g, '\n').trim();
+    const normalizedResult = result.trim();
+    expect(normalizedResult).toBe(normalizedExpected);
   });
 
-  test('compares yml files', () => {
-    const file1 = '__tests__/__fixtures__/file1.yml';
-    const file2 = '__tests__/__fixtures__/file2.yml';
+  test('compares nested yaml files', () => {
+    const file1 = getFixturePath('nested1.yaml');
+    const file2 = getFixturePath('nested2.yaml');
+    const expected = readFixture('expected-nested.txt');
     const result = genDiff(file1, file2);
-    const expected = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-    expect(result).toBe(expected);
+    const normalizedExpected = expected.replace(/\r\n/g, '\n').trim();
+    const normalizedResult = result.trim();
+    expect(normalizedResult).toBe(normalizedExpected);
   });
 });

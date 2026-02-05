@@ -1,5 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/disya08/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/disya08/frontend-project-46/actions)
+
 ## Example
 
 ```bash
@@ -12,4 +13,3 @@ $ gendiff file1.json file2.json
   + timeout: 20
   + verbose: true
 }
-```
