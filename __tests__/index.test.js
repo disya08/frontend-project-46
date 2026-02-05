@@ -36,4 +36,14 @@ describe('genDiff', () => {
     const normalizedResult = result.trim();
     expect(normalizedResult).toBe(normalizedExpected);
   });
+
+  test('compares nested json files with json format', () => {
+    const file1 = getFixturePath('nested1.json');
+    const file2 = getFixturePath('nested2.json');
+    const result = genDiff(file1, file2, 'json');
+    expect(() => JSON.parse(result)).not.toThrow();
+    const parsed = JSON.parse(result);
+    expect(Array.isArray(parsed)).toBe(true);
+    expect(parsed.length).toBeGreaterThan(0);
+  });
 });

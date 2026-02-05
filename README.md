@@ -18,3 +18,25 @@ $ gendiff file1.json file2.json
 ```bash
 gendiff --format plain file1.json file2.json
 ```
+### JSON format example:
+```bash
+gendiff --format json file1.json file2.json
+```
+
+Output (структурированный JSON):
+```json
+[
+  {
+    "key": "common",
+    "type": "nested",
+    "children": [
+      {
+        "key": "follow",
+        "type": "added",
+        "value": false
+      }
+      // ... остальные изменения
+    ]
+  }
+]
+```

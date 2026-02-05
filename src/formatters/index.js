@@ -1,9 +1,11 @@
 const stylish = require('./stylish.js');
 const plain = require('./plain.js');
+const json = require('./json.js');
 
 const formatters = {
   stylish,
   plain,
+  json,
 };
 
 const getFormatter = (format) => {
