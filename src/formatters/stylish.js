@@ -1,4 +1,5 @@
-﻿const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+﻿```javascript
+const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const formatValue = (value, depth) => {
   if (!isObject(value)) {
@@ -36,7 +37,13 @@ const formatStylish = (diff, depth = 1) => {
       
       if (formatted === '' || value === null) {
         if (key === 'default' || key === 'bar') {
-          return `${indent}${sign} ${key}: `;
+          if (sign === '+') {
+            return `${indent}${sign} ${key}: `;
+          }
+          if (value === null) {
+            return `${indent}${sign} ${key}: null`;
+          }
+          return `${indent}${sign} ${key}:`;
         }
         if (value === null) {
           return `${indent}${sign} ${key}: null`;
@@ -70,3 +77,4 @@ const formatStylish = (diff, depth = 1) => {
 };
 
 module.exports = formatStylish;
+```
