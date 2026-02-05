@@ -3,7 +3,7 @@ const isObject = (value) => typeof value === 'object' && value !== null && !Arra
 const formatValue = (value, depth) => {
   if (!isObject(value)) {
     if (value === null) return 'null';
-    if (value === '') return '';
+    if (value === '') return ' ';
     if (typeof value === 'string') return value;
     return String(value);
   }
@@ -34,7 +34,7 @@ const formatStylish = (diff, depth = 1) => {
 
     const makeLine = (sign, value) => {
       const formatted = formatValue(value, depth + 1);
-      if (formatted === '') {
+      if (formatted === ' ') {
         return `${indent}${sign} ${key}:`;
       }
       return `${indent}${sign} ${key}: ${formatted}`;
