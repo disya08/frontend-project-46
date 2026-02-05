@@ -1,5 +1,4 @@
-﻿```javascript
-const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+﻿const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const formatValue = (value, depth) => {
   if (!isObject(value)) {
@@ -16,12 +15,12 @@ const formatValue = (value, depth) => {
   const lines = entries.map(([key, val]) => {
     const formattedValue = formatValue(val, depth + 1);
     if (formattedValue === '') {
-      return `${currentIndent}${key}:`;
+      return currentIndent + key + ':';
     }
-    return `${currentIndent}${key}: ${formattedValue}`;
+    return currentIndent + key + ': ' + formattedValue;
   });
 
-  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
+  return '{\n' + lines.join('\n') + '\n' + bracketIndent + '}';
 };
 
 const formatStylish = (diff, depth = 1) => {
@@ -38,20 +37,20 @@ const formatStylish = (diff, depth = 1) => {
       if (formatted === '' || value === null) {
         if (key === 'default' || key === 'bar') {
           if (sign === '+') {
-            return `${indent}${sign} ${key}: `;
+            return indent + sign + ' ' + key + ': ';
           }
           if (value === null) {
-            return `${indent}${sign} ${key}: null`;
+            return indent + sign + ' ' + key + ': null';
           }
-          return `${indent}${sign} ${key}:`;
+          return indent + sign + ' ' + key + ':';
         }
         if (value === null) {
-          return `${indent}${sign} ${key}: null`;
+          return indent + sign + ' ' + key + ': null';
         }
-        return `${indent}${sign} ${key}:`;
+        return indent + sign + ' ' + key + ':';
       }
       
-      return `${indent}${sign} ${key}: ${formatted}`;
+      return indent + sign + ' ' + key + ': ' + formatted;
     };
 
     switch (type) {
@@ -67,14 +66,13 @@ const formatStylish = (diff, depth = 1) => {
           makeLine('+', node.value2),
         ].join('\n');
       case 'nested':
-        return `${indent}  ${key}: ${formatStylish(node.children, depth + 1)}`;
+        return indent + '  ' + key + ': ' + formatStylish(node.children, depth + 1);
       default:
         return '';
     }
   });
 
-  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
+  return '{\n' + lines.join('\n') + '\n' + bracketIndent + '}';
 };
 
 module.exports = formatStylish;
-```
