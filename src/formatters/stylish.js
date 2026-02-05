@@ -36,13 +36,7 @@ const formatStylish = (diff, depth = 1) => {
       
       if (formatted === '' || value === null) {
         if (key === 'default' || key === 'bar') {
-          if (sign === '+') {
-            return indent + sign + ' ' + key + ': ';
-          }
-          if (value === null) {
-            return indent + sign + ' ' + key + ': null';
-          }
-          return indent + sign + ' ' + key + ':';
+          return indent + sign + ' ' + key + ': ';
         }
         if (value === null) {
           return indent + sign + ' ' + key + ': null';
