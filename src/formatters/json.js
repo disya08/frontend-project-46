@@ -1,3 +1,4 @@
-const formatJson = (diff) => JSON.stringify(diff, null, 2);
+﻿const formatJson = diff => JSON.stringify(diff, null, 2)
 
-module.exports = formatJson;
+module.exports = formatJson
+

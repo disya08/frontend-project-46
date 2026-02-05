@@ -1,78 +1,79 @@
-const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+﻿const isObject = value => typeof value === 'object' && value !== null && !Array.isArray(value)
 
 const formatValue = (value, depth) => {
   if (!isObject(value)) {
-    if (value === null) return 'null';
-    if (value === '') return '';
-    return String(value);
+    if (value === null) return 'null'
+    if (value === '') return ''
+    return String(value)
   }
 
-  const indentSize = 4;
-  const currentIndent = ' '.repeat(depth * indentSize);
-  const bracketIndent = ' '.repeat((depth - 1) * indentSize);
-  const entries = Object.entries(value);
+  const indentSize = 4
+  const currentIndent = ' '.repeat(depth * indentSize)
+  const bracketIndent = ' '.repeat((depth - 1) * indentSize)
+  const entries = Object.entries(value)
 
   const lines = entries.map(([key, val]) => {
-    const formattedValue = formatValue(val, depth + 1);
+    const formattedValue = formatValue(val, depth + 1)
     if (formattedValue === '') {
-      return `${currentIndent + key}:`;
+      return `${currentIndent + key}:`
     }
-    return `${currentIndent + key}: ${formattedValue}`;
-  });
+    return `${currentIndent + key}: ${formattedValue}`
+  })
 
-  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
-};
+  return `{\n${lines.join('\n')}\n${bracketIndent}}`
+}
 
 const formatStylish = (diff, depth = 1) => {
-  const indentSize = 4;
-  const indent = ' '.repeat(depth * indentSize - 2);
-  const bracketIndent = ' '.repeat((depth - 1) * indentSize);
+  const indentSize = 4
+  const indent = ' '.repeat(depth * indentSize - 2)
+  const bracketIndent = ' '.repeat((depth - 1) * indentSize)
 
   const lines = diff.map((node) => {
-    const { key, type } = node;
+    const { key, type } = node
 
     const makeLine = (sign, value) => {
-      const formatted = formatValue(value, depth + 1);
+      const formatted = formatValue(value, depth + 1)
 
       if (formatted === '' || value === null) {
         if (key === 'default') {
           if (sign === '+') {
-            return `${indent + sign} ${key}: `;
+            return `${indent + sign} ${key}: `
           }
-          return `${indent + sign} ${key}: null`;
+          return `${indent + sign} ${key}: null`
         }
         if (key === 'bar') {
-          return `${indent + sign} ${key}: `;
+          return `${indent + sign} ${key}: `
         }
         if (value === null) {
-          return `${indent + sign} ${key}: null`;
+          return `${indent + sign} ${key}: null`
         }
-        return `${indent + sign} ${key}:`;
+        return `${indent + sign} ${key}:`
       }
 
-      return `${indent + sign} ${key}: ${formatted}`;
-    };
+      return `${indent + sign} ${key}: ${formatted}`
+    }
 
     switch (type) {
       case 'added':
-        return makeLine('+', node.value);
+        return makeLine('+', node.value)
       case 'removed':
-        return makeLine('-', node.value);
+        return makeLine('-', node.value)
       case 'unchanged':
-        return makeLine(' ', node.value);
+        return makeLine(' ', node.value)
       case 'changed':
         return [
           makeLine('-', node.value),
           makeLine('+', node.value2),
-        ].join('\n');
+        ].join('\n')
       case 'nested':
-        return `${indent}  ${key}: ${formatStylish(node.children, depth + 1)}`;
+        return `${indent}  ${key}: ${formatStylish(node.children, depth + 1)}`
       default:
-        return '';
+        return ''
     }
-  });
+  })
 
-  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
-};
+  return `{\n${lines.join('\n')}\n${bracketIndent}}`
+}
 
-module.exports = formatStylish;
+module.exports = formatStylish
+

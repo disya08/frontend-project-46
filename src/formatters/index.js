@@ -1,19 +1,20 @@
-const stylish = require('./stylish.js');
-const plain = require('./plain.js');
-const json = require('./json.js');
+﻿const stylish = require('./stylish.js')
+const plain = require('./plain.js')
+const json = require('./json.js')
 
 const formatters = {
   stylish,
   plain,
   json,
-};
+}
 
 const getFormatter = (format) => {
-  const formatter = formatters[format];
+  const formatter = formatters[format]
   if (!formatter) {
-    throw new Error(`Unknown format: ${format}`);
+    throw new Error(`Unknown format: ${format}`)
   }
-  return formatter;
-};
+  return formatter
+}
 
-module.exports = getFormatter;
+module.exports = getFormatter
+
