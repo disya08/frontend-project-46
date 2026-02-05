@@ -28,13 +28,10 @@ const formatStylish = (diff, depth = 1) => {
     const { key, type } = node;
 
     const makeLine = (sign, value) => {
-      const formatted = formatValue(value, depth + 1);
       if (value === '') {
-        if (sign === '+') {
-          return `${indent}${sign} ${key}: `;
-        }
         return `${indent}${sign} ${key}:`;
       }
+      const formatted = formatValue(value, depth + 1);
       return `${indent}${sign} ${key}: ${formatted}`;
     };
 
