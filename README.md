@@ -13,3 +13,8 @@ $ gendiff file1.json file2.json
   + timeout: 20
   + verbose: true
 }
+
+### Plain format example:
+```bash
+gendiff --format plain file1.json file2.json
+```
