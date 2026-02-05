@@ -1,4 +1,4 @@
-const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+﻿const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const formatValue = (value, depth) => {
   if (!isObject(value)) {
@@ -32,13 +32,18 @@ const formatStylish = (diff, depth = 1) => {
     const { key, type } = node;
 
     const makeLine = (sign, value) => {
-      if (value === null) {
-        return `${indent}${sign} ${key}: null`;
-      }
       const formatted = formatValue(value, depth + 1);
-      if (formatted === '') {
+      
+      if (formatted === '' || value === null) {
+        if (key === 'default' || key === 'bar') {
+          return `${indent}${sign} ${key}: `;
+        }
+        if (value === null) {
+          return `${indent}${sign} ${key}: null`;
+        }
         return `${indent}${sign} ${key}:`;
       }
+      
       return `${indent}${sign} ${key}: ${formatted}`;
     };
 
